@@ -24,8 +24,8 @@ class AudioDownloader:
                 new_file = base + '.mp3'
                 os.rename(out_file, new_file)
                 print(new_file)
-            except AttributeError:
-                return False, 'Error'
+            except:
+                pass
 
         file_name = "songs"
         directory = "temp"
