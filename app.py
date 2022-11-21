@@ -17,14 +17,15 @@ def home():
 @app.route('/download', methods=['GET', 'POST'])
 def download():
     url = request.form['pesquisa']
-    if url.startswith('https://www.youtube.com/playlist?'):
+    # check if the url is a playlist
+    if 'list=' in url:
         aD.playlist_download(url)
         return send_file('temp/songs.zip', as_attachment=True)
-    elif url.startswith('https://www.youtube.com/watch?'):
+    # check if the url is a video
+    elif 'watch?v=' in url:
         arquivo = aD.link_download(url)
         return send_file(arquivo, as_attachment=True)
-    elif url == "":
-        return False
+    # if not, search for the video
     else:
         arquivo = aD.search_download(url)
         return send_file(arquivo, as_attachment=True)
